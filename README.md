@@ -1,5 +1,9 @@
 # SilverStripe Favicon Manager
 
+[![CI](https://github.com/normann/silverstripe-favicon-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/normann/silverstripe-favicon-manager/actions/workflows/ci.yml)
+[![Latest Stable Version](https://poser.pugx.org/normann/silverstripe-favicon-manager/version)](https://packagist.org/packages/normann/silverstripe-favicon-manager)
+[![License](https://poser.pugx.org/normann/silverstripe-favicon-manager/license)](https://packagist.org/packages/normann/silverstripe-favicon-manager)
+
 Lets a CMS user upload the ZIP produced by a favicon generator tool (such as
 [realfavicongenerator.net](https://realfavicongenerator.net/)) once, in Settings, and
 automatically extracts, stores, and versions every favicon/manifest file it contains —
