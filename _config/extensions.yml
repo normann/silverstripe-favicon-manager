@@ -1,0 +1,6 @@
+---
+Name: favicon-manager-extensions
+---
+SilverStripe\SiteConfig\SiteConfig:
+  extensions:
+    - Normann\FaviconManager\Extension\FaviconSiteConfigExtension
