@@ -16,4 +16,11 @@
             <property name="absoluteLineLimit" value="0"/>
         </properties>
     </rule>
+
+    <!-- This stub deliberately has no namespace: it must declare a bare global
+         Page class so silverstripe/errorpage's `use Page;` import resolves
+         when testing this module in isolation (no real site "app" folder). -->
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern>tests/Stub/Page.php</exclude-pattern>
+    </rule>
 </ruleset>
