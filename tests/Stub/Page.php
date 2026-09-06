@@ -1,5 +1,7 @@
 <?php
 
+namespace Normann\FaviconManager\Tests\Stub;
+
 use SilverStripe\CMS\Model\SiteTree;
 use SilverStripe\Dev\TestOnly;
 
