@@ -296,7 +296,6 @@ HTML;
             $zipHandler = new ZipArchive();
 
             if ($zipHandler->open($tmpZip) === true) {
-
                 for ($i = 0; $i < $zipHandler->numFiles; ++$i) {
                     $filename = $zipHandler->getNameIndex($i);
                     $fileinfo = pathinfo($filename);
