@@ -364,7 +364,8 @@ HTML;
             File::get_file_extension($fileName)
         );
 
-        $file   = Injector::inst()->create($fileClass);
+        $file    = Injector::inst()->create($fileClass);
+        $tmpPath = $this->getTempFilePath($fileName);
 
         $upload = Upload::create();
         $upload->getValidator()->setAllowedExtensions(['ico', 'png', 'svg', 'json', 'xml']);
@@ -373,12 +374,21 @@ HTML;
 
         $tmpFile = [
             'name'     => $fileName,
-            'error'    => null,
-            'size'     => 1,
-            'tmp_name' => $this->getTempFilePath($fileName),
+            'type'     => @mime_content_type($tmpPath) ?: 'application/octet-stream',
+            'error'    => UPLOAD_ERR_OK,
+            'size'     => file_exists($tmpPath) ? filesize($tmpPath) : 0,
+            'tmp_name' => $tmpPath,
         ];
 
         $upload->loadIntoFile($tmpFile, $file, $this->getIconsFolderPath());
+
+        if ($upload->isError()) {
+            throw new Exception(sprintf(
+                'FaviconSiteConfigExtension: failed to save "%s" as a File record: %s',
+                $fileName,
+                implode('; ', $upload->getErrors())
+            ));
+        }
 
         return $upload->getFile();
     }

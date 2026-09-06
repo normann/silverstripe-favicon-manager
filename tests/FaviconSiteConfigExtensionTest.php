@@ -4,18 +4,14 @@ namespace Normann\FaviconManager\Tests;
 
 use SilverStripe\Assets\File;
 use SilverStripe\Dev\SapphireTest;
+use SilverStripe\ORM\FieldType\DBDatetime;
 use SilverStripe\SiteConfig\SiteConfig;
 use Normann\FaviconManager\Extension\FaviconSiteConfigExtension;
 
-/**
- * NOTE: these tests are written against a standard SilverStripe testing environment
- * (SapphireTest + TestAssetStore) and have not been executed in this sandbox — there's
- * no PHP runtime available here to run them. Run `vendor/bin/phpunit` in a real
- * SilverStripe project before relying on them; adjust file-creation helpers below if
- * your SilverStripe version's asset test helpers differ.
- */
 class FaviconSiteConfigExtensionTest extends SapphireTest
 {
+    protected $usesDatabase = true;
+
     protected static $required_extensions = [
         SiteConfig::class => [
             FaviconSiteConfigExtension::class,
@@ -109,8 +105,12 @@ class FaviconSiteConfigExtensionTest extends SapphireTest
 
     public function testCacheKeyChangesOnAnySiteConfigSave(): void
     {
+        DBDatetime::set_mock_now('2026-01-01 12:00:00');
+
         $siteConfig = SiteConfig::current_site_config();
         $keyBefore = $siteConfig->getFaviconsCacheKey();
+
+        DBDatetime::set_mock_now('2026-01-01 12:00:01');
 
         $siteConfig->Title = $siteConfig->Title . ' (updated)';
         $siteConfig->write();
@@ -118,6 +118,8 @@ class FaviconSiteConfigExtensionTest extends SapphireTest
         $keyAfter = $siteConfig->getFaviconsCacheKey();
 
         $this->assertNotEquals($keyBefore, $keyAfter, 'Cache key must change on any SiteConfig save (via LastEdited)');
+
+        DBDatetime::clear_mock_now();
     }
 
     /**
