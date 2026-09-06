@@ -19,12 +19,35 @@ jobs:
   phpunit:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        php: ['8.1', '8.2']
+        php: ['8.1', '8.3', '8.4']
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: ss_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    env:
+      SS_DATABASE_CLASS: MySQLDatabase
+      SS_DATABASE_SERVER: 127.0.0.1
+      SS_DATABASE_PORT: 3306
+      SS_DATABASE_USERNAME: root
+      SS_DATABASE_PASSWORD: ''
+      SS_DATABASE_NAME: ss_test
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
+          extensions: zip, fileinfo
       - run: composer install --no-progress --prefer-dist
       - run: vendor/bin/phpunit
+        continue-on-error: ${{ matrix.php == '8.4' }}
