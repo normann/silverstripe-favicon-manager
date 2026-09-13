@@ -59,4 +59,4 @@ first.
 ## Code of Conduct
 
 Participation in this project is governed by the
-[SilverStripe Community Code of Conduct](CODE_OF_CONDUCT.md).
+[SilverStripe Community Code of Conduct](code-of-conduct.md).
