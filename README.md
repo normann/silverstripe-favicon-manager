@@ -11,12 +11,14 @@ contains — no manual uploads, no hand-editing `manifest.json` paths.
 
 ## Requirements
 
-| This module | SilverStripe framework | PHP  |
-|-------------|-------------------------|------|
-| ^1.0        | ^5.0                    | ^8.1 |
+| This module | SilverStripe framework | PHP        |
+|-------------|-------------------------|------------|
+| ^1.0        | ^5.0                    | ^8.1       |
+| ^2.0        | ^6.0                    | ^8.3       |
 
 **Optional:** with [`silverstripe/subsites`](https://github.com/silverstripe/silverstripe-subsites)
-installed, favicon files are automatically namespaced per-subsite — no config needed.
+installed (`^3.0` for module `^1.0`, `^4.0` for module `^2.0`), favicon files are
+automatically namespaced per-subsite — no config needed.
 
 ## Installation
 

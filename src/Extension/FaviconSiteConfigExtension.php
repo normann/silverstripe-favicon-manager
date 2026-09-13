@@ -13,12 +13,12 @@ use SilverStripe\Assets\Image;
 use SilverStripe\Assets\Storage\AssetContainer;
 use SilverStripe\Assets\Upload;
 use SilverStripe\Assets\Upload_Validator;
+use SilverStripe\Core\Extension;
 use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Core\Validation\ValidationException;
 use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\LiteralField;
 use SilverStripe\Forms\Tab;
-use SilverStripe\ORM\DataExtension;
-use SilverStripe\ORM\ValidationException;
 use SilverStripe\Subsites\Model\Subsite;
 use SilverStripe\Versioned\Versioned;
 use ZipArchive;
@@ -26,7 +26,7 @@ use ZipArchive;
 /**
  * Populates favicon/manifest files on SiteConfig from an uploaded ZIP.
  */
-class FaviconSiteConfigExtension extends DataExtension
+class FaviconSiteConfigExtension extends Extension
 {
     /**
      * @var string
@@ -101,7 +101,7 @@ class FaviconSiteConfigExtension extends DataExtension
     /**
      * @throws ValidationException
      */
-    public function updateCMSFields(FieldList $fields): void
+    protected function updateCMSFields(FieldList $fields): void
     {
         $faviconTab = Tab::create('Favicon');
         $fields->insertAfter('Access', $faviconTab);
@@ -109,7 +109,7 @@ class FaviconSiteConfigExtension extends DataExtension
         $fields->addFieldsToTab('Root.Favicon', $this->buildFaviconUploadFields());
     }
 
-    public function onBeforeWrite(): void
+    protected function onBeforeWrite(): void
     {
         // Only re-process when the ZIP itself changes
         if ($this->owner->isChanged('FaviconArchiveZipID')) {
