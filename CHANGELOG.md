@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-09-13
+
 ### Changed
 - **Breaking:** now requires SilverStripe framework `^6.0` (and matching `^3.0`/`^6.0`
   majors of `assets`, `asset-admin`, `versioned`, `siteconfig`) and PHP `^8.3`.
